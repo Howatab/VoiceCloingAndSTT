@@ -8,6 +8,7 @@ import os
 import soundfile as sf
 from fastapi import FastAPI, UploadFile, Form, HTTPException
 from fastapi.responses import FileResponse
+from pyngrok import ngrok
 from cached_path import cached_path
 from f5_tts.infer.utils_infer import (
     hop_length,
@@ -272,4 +273,10 @@ def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+
+    # Start ngrok tunnel
+    public_url = ngrok.connect(8000)
+    print(f"ngrok public URL: {public_url}")
+
+    # Start the FastAPI server
+    uvicorn.run(app, host="0.0.0.0", port=8000)
