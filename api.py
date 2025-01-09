@@ -4,6 +4,7 @@ import tempfile
 import matplotlib.pyplot as plt
 import numpy as np
 import logging
+from pyngrok import conf
 import os
 import soundfile as sf
 from fastapi import FastAPI, UploadFile, Form, HTTPException
@@ -275,6 +276,7 @@ if __name__ == "__main__":
     import uvicorn
 
     # Start ngrok tunnel
+    conf.get_default().auth_token = "2rOKMRSvlIVFzPrGaAHjltgtc4C_56CNq3SmzFx74Bs3j9gm6"
     public_url = ngrok.connect(8000)
     print(f"ngrok public URL: {public_url}")
 
